@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-gray-50 text-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anoop John | Elite Mind Engineer & Corporate Coach</title>
+    <meta name="description" content="Engineering High-Performance Sales Teams and Leaders for Fortune 500 Companies.">
+    
+    <!-- Premium Typography: Plus Jakarta Sans for a modern, approachable corporate feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4338ca', // Indigo-700
+                        secondary: '#ec4899', // Pink-500
+                        tertiary: '#06b6d4', // Cyan-500
+                        accent: '#f59e0b', // Amber-500
+                        dark: '#0f172a', // Slate-900
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'mesh-light': 'radial-gradient(at 40% 20%, hsla(258,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(333,100%,70%,1) 0px, transparent 50%), radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%), radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%), radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%), radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Fluid Background */
+        .bg-mesh-blur {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: var(--tw-gradient-mesh-light);
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Components */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Vibrant Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #4338ca, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #4338ca, #6366f1);
+            color: white;
+            box-shadow: 0 4px 15px -3px rgba(67, 56, 202, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -5px rgba(67, 56, 202, 0.5);
+        }
+
+        /* Custom Shapes */
+        .blob-shape {
+            animation: blobBounce 8s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+        }
+        
+        @keyframes blobBounce {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        /* SVG Icon styling */
+        .icon-wrapper {
+            background: linear-gradient(135deg, rgba(67, 56, 202, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-gradient {
+            fill: url(#icon-grad);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Global SVG Gradients for Icons -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+        <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4338ca" />
+            <stop offset="100%" stop-color="#ec4899" />
+        </linearGradient>
+    </svg>
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
+        <!-- Top right blob -->
+        <div class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-indigo-300/40 to-purple-300/40 blur-3xl blob-shape"></div>
+        <!-- Bottom left blob -->
+        <div class="absolute top-[60%] -left-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-300/40 to-blue-300/40 blur-3xl blob-shape" style="animation-delay: -4s;"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:shadow-xl transition-all">
+                        AJ
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-dark">Anoop John</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center font-semibold text-sm text-slate-600">
+                    <a href="#about" class="hover:text-primary transition-colors">Philosophy</a>
+                    <a href="#services" class="hover:text-primary transition-colors">Frameworks</a>
+                    <a href="#book" class="hover:text-primary transition-colors">Publications</a>
+                    <a href="#contact" class="btn-primary px-6 py-2.5 rounded-full font-bold">Initiate Contact</a>
+                </div>
+
+                <button class="md:hidden text-slate-800 focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden bg-white/95 backdrop-blur-xl absolute w-full border-b border-gray-200 shadow-xl">
+            <div class="px-6 py-8 flex flex-col space-y-6 font-semibold text-center text-lg text-slate-700">
+                <a href="#about" class="hover:text-primary" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Philosophy</a>
+                <a href="#services" class="hover:text-primary" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Frameworks</a>
+                <a href="#book" class="hover:text-primary" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Publications</a>
+                <a href="#contact" class="btn-primary py-3 rounded-full mt-4" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Initiate Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Typography & Call to Action -->
+                <div class="lg:col-span-7 gs-reveal flex flex-col justify-center">
+                    <div class="inline-flex items-center gap-3 mb-6 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-gray-200 shadow-sm w-fit">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+                        </span>
+                        <span class="text-sm font-bold tracking-wide uppercase text-slate-700">Corporate Sales Trainer & Business Coach</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 text-dark">
+                        Engineer the <span class="text-gradient">Mind.</span><br/>
+                        Scale the <span class="text-gradient">Enterprise.</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-slate-600 font-medium max-w-xl mb-10 leading-relaxed">
+                        Discard motivation. We deploy clinical, risk-mitigated cognitive frameworks to forge high-performance leaders and close multi-million dollar corporate accounts.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#contact" class="btn-primary px-8 py-4 rounded-full text-lg font-bold w-full sm:w-auto text-center inline-flex justify-center items-center gap-2">
+                            Book Strategy Call
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                        <a href="#services" class="px-8 py-4 rounded-full text-lg font-bold w-full sm:w-auto text-center border-2 border-slate-200 text-slate-700 hover:border-primary hover:text-primary transition-colors bg-white/50 backdrop-blur-sm">
+                            Explore Frameworks
+                        </a>
+                    </div>
+
+                    <!-- Trust indicators under buttons -->
+                    <div class="mt-10 flex items-center gap-4 text-sm font-semibold text-slate-500">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="Avatar">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="Avatar">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="Avatar">
+                        </div>
+                        <p>Trusted by <span class="text-dark font-bold">10,000+</span> professionals worldwide.</p>
+                    </div>
+                </div>
+                
+                <!-- Right: Hero Image & Abstract Accents -->
+                <div class="lg:col-span-5 relative gs-reveal-img flex justify-center lg:justify-end mt-12 lg:mt-0">
+                    <div class="relative w-full max-w-md">
+                        <!-- Decorative abstract background elements behind image -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl transform rotate-6 scale-105 backdrop-blur-sm shadow-xl"></div>
+                        <div class="absolute inset-0 bg-white rounded-3xl transform -rotate-3 scale-105 shadow-md"></div>
+                        
+                        <!-- Floating SVG Accent 1 -->
+                        <div class="absolute -top-10 -left-10 w-24 h-24 bg-white rounded-2xl shadow-xl flex items-center justify-center animate-bounce" style="animation-duration: 3s;">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Floating SVG Accent 2 -->
+                        <div class="absolute -bottom-8 -right-8 w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4"></path>
+                                <path d="M12 8h.01"></path>
+                            </svg>
+                        </div>
+
+                        <!-- Main Image -->
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100">
+                            <img src="https://anoopjohn.in/wp-content/uploads/2026/03/Untitled-design.webp" 
+                                 alt="Anoop John" 
+                                 class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 border-y border-gray-200 bg-white relative z-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-6 text-center">
+            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Engineering Growth For Industry Giants</p>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-content gap-16 items-center px-8 text-slate-800/60 font-extrabold text-2xl tracking-tighter">
+                <span>MUTHOOT FINANCE</span>
+                <span>APOLLO TYRES</span>
+                <span>GEOJIT</span>
+                <span>HERO MOTOCORP</span>
+                <span>EAGLEBURGMANN</span>
+                <span>IMDAAD</span>
+                
+                <!-- Duplicate for seamless loop -->
+                <span>MUTHOOT FINANCE</span>
+                <span>APOLLO TYRES</span>
+                <span>GEOJIT</span>
+                <span>HERO MOTOCORP</span>
+                <span>EAGLEBURGMANN</span>
+                <span>IMDAAD</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 lg:py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div class="text-center mb-20 gs-reveal">
+                <span class="text-secondary font-bold tracking-widest uppercase text-sm mb-4 block">Core Directives</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-dark">Precision-Engineered Frameworks.</h2>
+                <p class="text-lg text-slate-600 font-medium max-w-2xl mx-auto">Designed to eliminate operational friction, build resilient mindsets, and accelerate enterprise revenue.</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="glass-card p-10 rounded-3xl flex flex-col gs-reveal">
+                    <div class="icon-wrapper w-16 h-16 mb-8 shadow-sm">
+                        <svg class="w-8 h-8" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-dark">Elite Corporate Sales Training</h3>
+                    <p class="text-slate-600 font-medium leading-relaxed mb-6 flex-grow">
+                        Forged in B2B realities with 20+ years of frontline mastery. We transform corporate teams to consistently close multi-million dollar deals using clinical, risk-mitigated negotiation processes.
+                    </p>
+                    <a href="#" class="text-primary font-bold inline-flex items-center gap-1 hover:gap-3 transition-all">
+                        Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-10 rounded-3xl flex flex-col gs-reveal" style="transition-delay: 0.1s;">
+                    <div class="icon-wrapper w-16 h-16 mb-8 shadow-sm">
+                        <svg class="w-8 h-8" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-dark">The "Mind Engineering" Framework</h3>
+                    <p class="text-slate-600 font-medium leading-relaxed mb-6 flex-grow">
+                        Mechanics over motivation. A proprietary approach that rewires human psychology, eliminating cognitive roadblocks to build resilient, unshakeable leadership mindsets.
+                    </p>
+                    <a href="#" class="text-primary font-bold inline-flex items-center gap-1 hover:gap-3 transition-all">
+                        Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-10 rounded-3xl flex flex-col gs-reveal" style="transition-delay: 0.2s;">
+                    <div class="icon-wrapper w-16 h-16 mb-8 shadow-sm">
+                        <svg class="w-8 h-8" fill="none" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-dark">Strategic Business Coaching</h3>
+                    <p class="text-slate-600 font-medium leading-relaxed mb-6 flex-grow">
+                        Equipping CEOs and founders with the exact cognitive tools and strategic blueprints to break through operational plateaus and drive predictable growth.
+                    </p>
+                    <a href="#" class="text-primary font-bold inline-flex items-center gap-1 hover:gap-3 transition-all">
+                        Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="book" class="py-24 lg:py-32 relative z-10 bg-white border-y border-gray-100 overflow-hidden">
+        
+        <!-- Abstract Background Graphic -->
+        <div class="absolute -right-64 -bottom-64 w-[800px] h-[800px] bg-gradient-to-tl from-pink-100 to-indigo-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Book Image -->
+                <div class="relative flex justify-center lg:justify-start gs-reveal order-2 lg:order-1 perspective-1000">
+                    <div class="relative w-64 md:w-80 transform-style-3d group hover:-translate-y-4 transition-transform duration-700">
+                        <!-- Shadow/Glow -->
+                        <div class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700 rounded-[2rem]"></div>
+                        
+                        <img src="https://anoopjohn.in/wp-content/uploads/2026/03/Mount-FEARest.webp" 
+                             alt="Mount FEARest Book" 
+                             class="relative z-10 w-full h-auto rounded-xl shadow-2xl border border-white"
+                             style="transform: rotateY(15deg) rotateX(5deg); box-shadow: 20px 20px 40px rgba(0,0,0,0.15);">
+                    </div>
+                </div>
+
+                <!-- Book Text -->
+                <div class="gs-reveal flex flex-col justify-center order-1 lg:order-2">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-4 py-1.5 bg-indigo-50 text-primary rounded-full text-xs font-bold tracking-widest uppercase border border-indigo-100">Featured Publication</span>
+                        <div class="flex text-accent">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-dark">
+                        "Mount FEARest"
+                    </h2>
+                    <h4 class="text-xl text-slate-700 font-semibold mb-8 border-l-4 border-secondary pl-4">The Blueprint for High-Stakes Resilience</h4>
+                    
+                    <p class="text-slate-600 text-lg leading-relaxed mb-10 font-medium">
+                        Step away from tactical business mechanics to address the root cause of professional and personal paralysis: fear, self-doubt, and operational hesitation. This is the foundational roadmap to navigate internal roadblocks and engineer unshakeable success.
+                    </p>
+                    
+                    <div>
+                        <a href="https://notionpress.com/in/read/mount-fearest" target="_blank" rel="noopener" class="btn-primary px-8 py-4 rounded-full text-lg font-bold inline-flex items-center gap-3 shadow-lg">
+                            Acquire the Blueprint
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 relative z-10 overflow-hidden bg-dark">
+        <!-- Vibrant background elements for CTA -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-[50rem] mx-auto px-6 text-center relative z-10 gs-reveal">
+            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 text-white">
+                Stop Operating on Autopilot.
+            </h2>
+            <p class="text-xl text-slate-300 font-medium mb-12 leading-relaxed">
+                Transform a stagnant corporate sales force or rewire your own leadership mindset. The next step is a strategic alignment session.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#" class="btn-primary px-8 py-4 rounded-full text-lg font-bold">Request Corporate Proposal</a>
+                <a href="#" class="px-8 py-4 rounded-full text-lg font-bold text-white border-2 border-slate-600 hover:border-white transition-colors">Apply for Private Coaching</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark pt-20 pb-10 border-t border-slate-800 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-12 gap-12 mb-16">
+                
+                <div class="md:col-span-5">
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg">
+                            AJ
+                        </div>
+                        <span class="font-bold text-2xl tracking-tight text-white">Anoop John</span>
+                    </a>
+                    <p class="text-slate-400 font-medium leading-relaxed max-w-sm mb-8">
+                        Corporate Sales Trainer, Business Coach, and author of Mount FEARest. Built for Elite Performance.
+                    </p>
+                </div>
+                
+                <div class="md:col-span-3 md:col-start-7">
+                    <h4 class="font-bold tracking-widest uppercase text-xs text-slate-500 mb-6">Headquarters</h4>
+                    <p class="text-sm text-slate-400 font-medium leading-relaxed">
+                        <strong class="text-slate-200">Meta Minds</strong><br>
+                        Suite No.768, 2nd Floor, KC Arcade,<br>
+                        CSEZ P.O, Kakkanad,<br>
+                        Kochi - 682037, Kerala.
+                    </p>
+                </div>
+
+                <div class="md:col-span-3">
+                    <h4 class="font-bold tracking-widest uppercase text-xs text-slate-500 mb-6">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/" target="_blank" class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center hover:bg-primary hover:border-primary transition-all text-slate-300 hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+                        </a>
+                        <a href="https://www.youtube.com/" target="_blank" class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center hover:bg-secondary hover:border-secondary transition-all text-slate-300 hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center hover:bg-tertiary hover:border-tertiary transition-all text-slate-300 hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-medium">
+                <p>&copy; 2026 Anoop John. All Rights Reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- GSAP Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar shadow effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+
+        // Cinematic Reveals
+        const tl = gsap.timeline();
+        
+        // Stagger hero text and elements
+        tl.fromTo('.gs-reveal', 
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.1 }
+        );
+
+        // Hero Image reveal
+        tl.fromTo('.gs-reveal-img',
+            { x: 50, opacity: 0 },
+            { x: 0, opacity: 1, duration: 1.2, ease: "power2.out" },
+            "-=0.8"
+        );
+
+        // Scroll reveals for layout blocks
+        gsap.utils.toArray('.gs-reveal').forEach(element => {
+            if(!element.closest('.lg:col-span-7') && !element.closest('.gs-reveal-img')) { // skip hero items already animated
+                gsap.fromTo(element, 
+                    { y: 40, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    }
+                );
+            }
+        });
+    </script>
+</body>
+</html>
