@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anoop John | Mind Engineer & Corporate Coach</title>
+    <meta name="description" content="Engineering High-Performance Sales Teams and Leaders for Fortune 500 Companies.">
+    
+    <!-- Modern Corporate Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1E40AF',   // Deep Blue
+                        secondary: '#6366F1', // Indigo
+                        accent: '#F59E0B',    // Amber/Gold
+                        dark: '#0F172A',      // Slate 900
+                        light: '#F8FAFC',     // Slate 50
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        'card': '0 20px 40px -15px rgba(0,0,0,0.05)',
+                        'glow': '0 0 40px 0 rgba(99, 102, 241, 0.3)',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'mesh': 'radial-gradient(at 40% 20%, hsla(228,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%), radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%), radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%), radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%), radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        /* Abstract Mesh Gradient Animation */
+        .mesh-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ffffff;
+            background-image: radial-gradient(at 82% 16%, hsla(228,100%,74%,0.4) 0px, transparent 50%),
+                              radial-gradient(at 12% 20%, hsla(259,100%,73%,0.4) 0px, transparent 50%),
+                              radial-gradient(at 88% 85%, hsla(286,100%,74%,0.4) 0px, transparent 50%),
+                              radial-gradient(at 15% 82%, hsla(189,100%,56%,0.4) 0px, transparent 50%);
+            z-index: -1;
+            animation: breathe 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); filter: hue-rotate(0deg); }
+            100% { transform: scale(1.05); filter: hue-rotate(15deg); }
+        }
+
+        /* Float Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-delayed { animation: float-delayed 7s ease-in-out infinite 1s; }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .marquee-content {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Custom Gradients for Text & Buttons */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #1E40AF, #6366F1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1E40AF 0%, #6366F1 100%);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1E40AF;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: #6366F1;
+            color: #6366F1;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+        }
+        
+        /* Modern Card Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        .service-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, #1E40AF 0%, #6366F1 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-secondary selection:text-white relative">
+
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="flex items-center gap-2 group">
+                    <!-- Sleek Modern Logo -->
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-105 transition-transform">
+                        AJ
+                    </div>
+                    <span class="font-bold text-xl text-dark tracking-tight">Anoop John</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-semibold text-sm text-slate-600">
+                    <a href="#about" class="hover:text-secondary transition-colors">About</a>
+                    <a href="#services" class="hover:text-secondary transition-colors">Services</a>
+                    <a href="#book" class="hover:text-secondary transition-colors">Mount FEARest</a>
+                    <a href="#contact" class="btn-primary px-6 py-2.5 rounded-full font-bold">Book Strategy Call</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button class="md:hidden text-slate-600 hover:text-secondary focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-white/95 backdrop-blur-md border-b border-gray-100 absolute w-full shadow-lg">
+            <div class="px-6 py-4 flex flex-col space-y-4 text-center font-semibold">
+                <a href="#about" class="text-slate-600" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+                <a href="#services" class="text-slate-600" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Services</a>
+                <a href="#book" class="text-slate-600" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Mount FEARest</a>
+                <a href="#contact" class="btn-primary w-full py-3 rounded-full" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Book Strategy Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+        <!-- Vibrant Animated Mesh Background -->
+        <div class="mesh-bg"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Text -->
+                <div class="gs-reveal-up text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-white shadow-sm mb-6">
+                        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                        <span class="text-xs font-bold text-slate-700 tracking-widest uppercase">Mind Engineer & Corporate Trainer</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dark tracking-tight leading-[1.1] mb-6">
+                        Rewire Your Mind.<br/>
+                        <span class="text-gradient">Scale Your Growth.</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-slate-600 font-medium mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        I combine 20+ years of technical B2B sales experience with deep cognitive frameworks to engineer high-performance leaders and Fortune 500 corporate teams.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="btn-primary px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 group">
+                            Let's Talk Business
+                            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                        <a href="#about" class="btn-secondary px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center">
+                            Explore Frameworks
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image & Creative SVG Composition -->
+                <div class="relative gs-reveal-scale mx-auto w-full max-w-md lg:max-w-lg mt-10 lg:mt-0">
+                    
+                    <!-- Decorative Abstract Vector Ring Background -->
+                    <svg class="absolute inset-0 w-full h-full transform scale-[1.3] -z-10 text-secondary opacity-20 animate-spin-slow" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation-duration: 20s;">
+                        <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="2" stroke-dasharray="10 10" />
+                        <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="1" />
+                        <path d="M100 0 A 100 100 0 0 1 200 100" stroke="url(#paint0_linear)" stroke-width="4" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="paint0_linear" x1="100" y1="0" x2="200" y2="100" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#1E40AF"/>
+                                <stop offset="1" stop-color="#6366F1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <!-- Main Image Container -->
+                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-[6px] border-white/80 bg-white z-10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent mix-blend-overlay z-10"></div>
+                        <img src="https://anoopjohn.in/wp-content/uploads/2026/03/Front-hero.webp" 
+                             alt="Anoop John Speaking" 
+                             class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                             onerror="this.src='https://placehold.co/800x1000/F8FAFC/0F172A?text=Anoop+John'">
+                    </div>
+
+                    <!-- Floating UI Element 1: Experience -->
+                    <div class="absolute -bottom-6 -left-8 lg:-left-12 glass-card p-4 rounded-2xl flex items-center gap-4 animate-float z-20">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-orange-400 flex items-center justify-center text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xl text-dark">20+ Years</p>
+                            <p class="text-sm text-slate-500 font-medium">B2B Sales Mastery</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating UI Element 2: Impact -->
+                    <div class="absolute top-10 -right-6 lg:-right-10 glass-card p-4 rounded-2xl flex items-center gap-4 animate-float-delayed z-20">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xl text-dark">10,000+</p>
+                            <p class="text-sm text-slate-500 font-medium">Professionals Coached</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 bg-white border-y border-gray-100 overflow-hidden relative z-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-6 text-center">
+            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Trusted By Industry Leaders</p>
+        </div>
+        <div class="marquee-container opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <div class="marquee-content gap-16 items-center px-8">
+                <!-- Text representations acting as sleek logos for this demo -->
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">MUTHOOT FINANCE</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">APOLLO TYRES</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">GEOJIT</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">HERO MOTOCORP</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">EAGLEBURGMANN</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">IMDAAD</span>
+                <!-- Duplicate for seamless scroll -->
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">MUTHOOT FINANCE</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">APOLLO TYRES</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">GEOJIT</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">HERO MOTOCORP</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">EAGLEBURGMANN</span>
+                <span class="font-bold text-2xl text-slate-400 tracking-tighter">IMDAAD</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-light relative">
+        <!-- Abstract Top Wave SVG -->
+        <svg class="absolute top-0 left-0 w-full h-16 text-white transform -translate-y-full" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 54V0C0 0 357.5 54 720 54C1082.5 54 1440 0 1440 0V54H0Z"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20 gs-reveal-up">
+                <h2 class="text-sm font-bold text-secondary uppercase tracking-widest mb-3">Core Directives</h2>
+                <h3 class="text-4xl md:text-5xl font-extrabold text-dark mb-6 tracking-tight">Specialized frameworks to eliminate operational friction.</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-card border border-gray-100 service-card gs-reveal-up relative overflow-hidden group">
+                    <div class="icon-wrapper w-16 h-16 rounded-2xl bg-blue-50 text-primary flex items-center justify-center mb-8 transition-all duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">Elite Corporate Sales Training</h4>
+                    <p class="text-slate-600 font-medium leading-relaxed">
+                        Forged in B2B Realities. 20+ years of frontline sales mastery. We transform corporate teams to close multi-million dollar deals using clinical, risk-mitigated processes.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-card border border-gray-100 service-card gs-reveal-up relative overflow-hidden group delay-100">
+                    <div class="icon-wrapper w-16 h-16 rounded-2xl bg-indigo-50 text-secondary flex items-center justify-center mb-8 transition-all duration-300">
+                        <!-- Abstract Brain SVG -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">The "Mind Engineering" Framework</h4>
+                    <p class="text-slate-600 font-medium leading-relaxed">
+                        Mechanics Over Motivation. A proprietary, systematic approach that rewires human psychology, eliminating cognitive roadblocks to build resilient mindsets.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-[2rem] p-8 shadow-card border border-gray-100 service-card gs-reveal-up relative overflow-hidden group delay-200">
+                    <div class="icon-wrapper w-16 h-16 rounded-2xl bg-amber-50 text-accent flex items-center justify-center mb-8 transition-all duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">Strategic Business Coaching</h4>
+                    <p class="text-slate-600 font-medium leading-relaxed">
+                        Scaling Leaders. Equipping CEOs and founders with the exact cognitive tools to break through operational plateaus and drive predictable business growth.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="book" class="py-24 relative overflow-hidden bg-dark text-white">
+        <!-- Abstract Glowing SVG Background in Dark Section -->
+        <svg class="absolute top-0 right-0 transform translate-x-1/3 -translate-y-1/4 w-[800px] h-[800px] opacity-20 pointer-events-none" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_f)">
+                <circle cx="400" cy="400" r="200" fill="#6366F1"/>
+            </g>
+            <defs>
+                <filter id="filter0_f" x="0" y="0" width="800" height="800" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur"/>
+                </filter>
+            </defs>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="order-2 lg:order-1 gs-reveal-left relative flex justify-center">
+                    <!-- Elegant Book Presentation -->
+                    <div class="relative w-64 md:w-80">
+                        <!-- Background glow for book -->
+                        <div class="absolute inset-0 bg-secondary blur-3xl opacity-30 rounded-full animate-pulse"></div>
+                        <img src="https://anoopjohn.in/wp-content/uploads/2026/03/Mount-FEARest.webp" 
+                             alt="Mount FEARest Book by Anoop John" 
+                             class="relative z-10 w-full h-auto rounded-md shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/400x600/1E40AF/FFFFFF?text=Mount+FEARest'">
+                        
+                        <!-- Floating graphic element -->
+                        <div class="absolute -right-12 top-1/4 glass-card p-4 rounded-xl border border-white/10 shadow-glow animate-float-delayed z-20">
+                            <span class="text-accent font-bold">★★★★★</span>
+                            <p class="text-xs text-gray-300 mt-1">Bestselling Blueprint</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex flex-col justify-center gs-reveal-right">
+                    <span class="text-secondary font-bold tracking-widest uppercase mb-4 text-sm">Authored by Anoop John</span>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+                        "Mount FEARest"
+                    </h2>
+                    <h4 class="text-2xl text-gray-300 font-medium mb-6 border-l-4 border-secondary pl-4">The Blueprint for High-Stakes Resilience</h4>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-10">
+                        Step away from tactical business mechanics to address the root cause of professional and personal paralysis: fear, self-doubt, and operational hesitation. This is the foundational roadmap to navigate internal roadblocks and engineer unshakeable success.
+                    </p>
+                    <div>
+                        <a href="https://notionpress.com/in/read/mount-fearest" target="_blank" rel="noopener" class="btn-primary px-8 py-4 rounded-full font-bold text-lg inline-flex items-center gap-2">
+                            Order Your Copy
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 relative overflow-hidden bg-white">
+        <!-- Abstract Geometric SVG accents -->
+        <svg class="absolute bottom-0 left-0 text-gray-50 opacity-50 w-full" viewBox="0 0 1440 320" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 gs-reveal-up">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-dark mb-6 tracking-tight">
+                Stop Operating on Autopilot.<br/>
+                <span class="text-gradient">Start Engineering Growth.</span>
+            </h2>
+            <p class="text-xl text-slate-600 font-medium mb-12 max-w-2xl mx-auto">
+                Transform a stagnant corporate sales force or rewire your own leadership mindset. The next step is a strategic alignment session.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#" class="btn-primary px-8 py-4 rounded-full font-bold text-lg">Request Corporate Proposal</a>
+                <a href="#" class="btn-secondary px-8 py-4 rounded-full font-bold text-lg">Apply for Private Coaching</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark pt-20 pb-10 relative text-slate-400 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                
+                <div class="md:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg">
+                            AJ
+                        </div>
+                        <span class="font-bold text-2xl text-white tracking-tight">Anoop John</span>
+                    </a>
+                    <p class="text-base font-medium leading-relaxed max-w-sm mb-6">
+                        Corporate Sales Trainer, Business Coach, and author of Mount FEARest.
+                    </p>
+                    <p class="text-sm">
+                        <strong class="text-white">Meta Minds HQ</strong><br>
+                        Suite No.768, 2nd Floor, KC Arcade,<br>
+                        CSEZ P.O, Kakkanad, Kochi- 682037, Kerala.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold tracking-widest uppercase text-sm mb-6">Quick Links</h4>
+                    <ul class="space-y-3 font-medium">
+                        <li><a href="#about" class="hover:text-secondary transition-colors">About</a></li>
+                        <li><a href="#services" class="hover:text-secondary transition-colors">Frameworks</a></li>
+                        <li><a href="#book" class="hover:text-secondary transition-colors">Mount FEARest</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold tracking-widest uppercase text-sm mb-6">Connect</h4>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+                        </a>
+                        <a href="https://www.youtube.com/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium">
+                <p>&copy; 2026 Anoop John. Built for Elite Performance.</p>
+                <p class="mt-2 md:mt-0">Designed in Kochi, Kerala.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Register GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+                nav.classList.replace('bg-transparent', 'glass-nav');
+            } else {
+                nav.classList.remove('shadow-sm');
+                // nav.classList.replace('glass-nav', 'bg-transparent'); // Keep glass nav for consistency in this design
+            }
+        });
+
+        // Initial Load Animations
+        const tl = gsap.timeline();
+        
+        // Stagger intro text
+        tl.fromTo('.gs-reveal-up', 
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }
+        );
+
+        // Hero Image Scale & Fade in
+        tl.fromTo('.gs-reveal-scale',
+            { scale: 0.95, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 1, ease: "power3.out" },
+            "-=0.6"
+        );
+
+        // Scroll Animations for internal sections
+        const sections = ['#services', '#book', '#contact'];
+        
+        sections.forEach(sec => {
+            // General Up reveals
+            gsap.fromTo(`${sec} .gs-reveal-up`, 
+                { y: 50, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: sec,
+                        start: "top 80%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power2.out"
+                }
+            );
+
+            // Left/Right reveals for two-column layouts
+            gsap.fromTo(`${sec} .gs-reveal-left`, 
+                { x: -50, opacity: 0 },
+                {
+                    scrollTrigger: { trigger: sec, start: "top 80%" },
+                    x: 0, opacity: 1, duration: 1, ease: "power2.out"
+                }
+            );
+            
+            gsap.fromTo(`${sec} .gs-reveal-right`, 
+                { x: 50, opacity: 0 },
+                {
+                    scrollTrigger: { trigger: sec, start: "top 80%" },
+                    x: 0, opacity: 1, duration: 1, ease: "power2.out"
+                }
+            );
+        });
+    </script>
+</body>
+</html>
